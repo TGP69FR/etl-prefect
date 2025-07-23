@@ -14,9 +14,10 @@ pull:
 
 deployments:
   - name: etl-flow
-    entrypoint: etl_prefect.py:etl_flow
+    entrypoint: flows/etl_prefect.py:etl_flow
     work_pool:
       name: etl-pool
     schedules: []
+
 
 
