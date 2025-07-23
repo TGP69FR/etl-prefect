@@ -4,6 +4,11 @@ import pandas as pd
 import time
 import os
 
+# Charger le repo GitHub via block Prefect
+from prefect_github.repository import GitHubRepository
+
+GitHubRepository.load("etl-github").get_directory("flows").into("flows")
+
 @task
 def fetch_stock_data(ticker):
     headers = {
@@ -29,8 +34,6 @@ def etl_flow():
     df.to_csv("financial_data.csv", mode='a', header=not file_exists, index=False)
     print("✅ Script terminé.")
 
-if __name__ == "__main__":
-    etl_flow()
 
 
 
