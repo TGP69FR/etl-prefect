@@ -16,7 +16,7 @@ deployments:
   - name: etl-flow
     entrypoint: flows/etl_prefect.py:etl_flow
     work_pool:
-      name: default-agent-pool
+      name: etl-pool
       work_queue_name: default
       job_variables: {}
 
