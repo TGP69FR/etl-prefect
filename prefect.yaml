@@ -1,29 +1,22 @@
 name: ETL TEST
 prefect-version: 3.4.10
 
-build: null
-push: null
+build:
+  - prefect.deployments.steps.run_shell_script:
+      id: install-deps
+      script: |
+        pip install -U pip
+        pip install prefect-github
 
 pull:
-- prefect_github.deployments.steps.GitHubCloneRepository:
-    repository: https://github.com/TGP69FR/etl-prefect.git
-    branch: main
+  - prefect.deployments.steps.git_clone:
+      repository: https://github.com/TGP69FR/etl-prefect.git
 
 deployments:
-- name: etl-flow
-  version: null
-  tags: []
-  concurrency_limit: null
-  description: null
-  entrypoint: flows/etl_prefect.py:etl_flow
-  parameters: {}
-  work_pool:
-    name: etl-pool
-    work_queue_name: null
-    job_variables: {}
-  schedules:
-  - interval: 300.0
-    anchor_date: '2025-07-23T12:41:29.542026+00:00'
-    timezone: UTC
-    active: true
+  - name: etl-flow
+    entrypoint: etl_prefect.py:etl_flow
+    work_pool:
+      name: etl-pool
+    schedules: []
+
 
