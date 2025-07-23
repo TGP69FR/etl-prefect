@@ -1,26 +1,25 @@
-name: ETL TEST
+name: etl-prefect
 prefect-version: 3.4.10
 
 build:
   - prefect.deployments.steps.run_shell_script:
       id: install-deps
       script: |
-        pip install -U pip
-        pip install prefect-github
+        pip install -r requirements.txt
 
-
-
-pull:
+push:
   - prefect.deployments.steps.git_clone:
-      repository: https://github.com/TGP69FR/etl-prefect.git
+      repository: https://github.com/TGP69FR/etl-prefect
+      branch: main
 
 deployments:
   - name: etl-flow
     entrypoint: flows/etl_prefect.py:etl_flow
-
     work_pool:
-      name: etl-pool
-    schedules: []
+      name: default-agent-pool
+      work_queue_name: default
+      job_variables: {}
+
 
 
 
