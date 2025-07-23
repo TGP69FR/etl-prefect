@@ -7,6 +7,8 @@ build:
       script: |
         pip install -U pip
         pip install prefect-github
+        pip install requests  # 👈 ajout ici
+
 
 pull:
   - prefect.deployments.steps.git_clone:
@@ -15,6 +17,7 @@ pull:
 deployments:
   - name: etl-flow
     entrypoint: flows/etl_prefect.py:etl_flow
+
     work_pool:
       name: etl-pool
     schedules: []
